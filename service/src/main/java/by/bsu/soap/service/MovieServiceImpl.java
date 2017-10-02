@@ -6,6 +6,7 @@ import by.bsu.soap.dto.MovieDto;
 import by.bsu.soap.dto.RatingDto;
 import by.bsu.soap.exception.ServiceException;
 import by.bsu.soap.util.MovieDtoUtil;
+import by.bsu.soap.wrapper.MovieDtoArray;
 import javax.jws.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class MovieServiceImpl implements MovieService{
   }
 
   @Override
-  public MovieDto[] retrieveAllMovies() {
+  public MovieDtoArray retrieveAllMovies() {
     return MovieDtoUtil.createMovieDTOs(dao.retrieveAllMovies());
   }
 

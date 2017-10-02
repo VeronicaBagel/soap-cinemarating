@@ -5,21 +5,22 @@ import by.bsu.soap.dto.MovieDto;
 import by.bsu.soap.dto.RatingDto;
 import by.bsu.soap.enity.Movie;
 import by.bsu.soap.enity.Rating;
+import by.bsu.soap.wrapper.MovieDtoArray;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDtoUtil {
 
 
-  public static MovieDto[] createMovieDTOs(List<Movie> movies){
-    List<MovieDto> dtos = new ArrayList<>();
+  public static MovieDtoArray createMovieDTOs(List<Movie> movies){
+    MovieDtoArray result = new MovieDtoArray();
 
     for(Movie movie : movies){
-      dtos.add(createMovieDto(movie));
+      result.getItem().add(createMovieDto(movie));
     }
 
-    MovieDto[] result = new MovieDto[dtos.size()];
-    return dtos.toArray(result);
+
+    return result;
   }
 
   public static MovieDto createMovieDto (Movie movie){
