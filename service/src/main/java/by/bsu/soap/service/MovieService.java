@@ -2,6 +2,7 @@ package by.bsu.soap.service;
 
 
 import by.bsu.soap.dto.MovieDto;
+import by.bsu.soap.dto.RatingDto;
 import by.bsu.soap.exception.ServiceException;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -24,5 +25,7 @@ public interface MovieService {
   @WebMethod
   void deleteMovie(long id);
 
+  @WebMethod
+  void rateAMovie(RatingDto dto);
 
 }

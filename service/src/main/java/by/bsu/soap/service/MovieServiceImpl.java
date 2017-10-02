@@ -3,6 +3,7 @@ package by.bsu.soap.service;
 
 import by.bsu.soap.dao.MovieDao;
 import by.bsu.soap.dto.MovieDto;
+import by.bsu.soap.dto.RatingDto;
 import by.bsu.soap.exception.ServiceException;
 import by.bsu.soap.util.MovieDtoUtil;
 import javax.jws.WebService;
@@ -28,7 +29,9 @@ public class MovieServiceImpl implements MovieService{
 
   @Override
   public MovieDto retrieveMovie(long id) throws ServiceException {
-    return MovieDtoUtil.createMovieDto(dao.retrieveMovieById(id));
+    MovieDto dto = MovieDtoUtil.createMovieDto(dao.retrieveMovieById(id));
+    dto.setRating(dao.retrieveAverageRating(id));
+    return dto;
   }
 
 
@@ -44,5 +47,10 @@ public class MovieServiceImpl implements MovieService{
   @Override
   public void deleteMovie(long id) {
     dao.deleteMovie(id);
+  }
+
+  @Override
+  public void rateAMovie(RatingDto dto) {
+    dao.rateAMovie(MovieDtoUtil.createRatingEntity(dto));
   }
 }

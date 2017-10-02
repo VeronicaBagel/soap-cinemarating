@@ -1,10 +1,11 @@
 package by.bsu.soap.controller;
 
 
-import by.bsu.soap.dto.MovieDto;
-import by.bsu.soap.dto.UserDto;
 import by.bsu.soap.exception.ServiceException;
+import by.bsu.soap.model.MovieModel;
+import by.bsu.soap.model.RatingModel;
 import by.bsu.soap.service.MovieService;
+import by.bsu.soap.util.MovieModelUtil;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,21 +36,22 @@ public class MoviesController {
 
   @GetMapping (value = "/movies/{id}")
   public String showUser(@PathVariable("id") long movieId, Model model) throws Exception {
-    MovieDto dto = service.retrieveMovie(movieId);
-    model.addAttribute(MOVIE_ATTRIBUTE, dto);
+    MovieModel movie = MovieModelUtil.createMovieModel(service.retrieveMovie(movieId));
+    model.addAttribute("rateMovieForm", new RatingModel());
+    model.addAttribute(MOVIE_ATTRIBUTE, movie);
     return "movie/movie";
   }
 
   @GetMapping (value = "movies/add")
   public String showMovieForm(Model model){
-    MovieDto dto = new MovieDto();
-    model.addAttribute("movieForm", dto);
+    MovieModel movie = new MovieModel();
+    model.addAttribute("movieForm", movie);
     return "movie/movieForm";
   }
 
   @PostMapping(value = "/movies")
-  public String saveMovie(@ModelAttribute("login") MovieDto movie, HttpServletRequest request){
-    service.saveOrUpdateMovie(movie);
+  public String saveMovie(@ModelAttribute("login") MovieModel movie, HttpServletRequest request){
+    service.saveOrUpdateMovie(MovieModelUtil.createMovieDto(movie));
     request.getSession().setAttribute(MOVIE_ATTRIBUTE, movie);
     return "redirect:/cinemarating/main";
   }
@@ -58,7 +60,7 @@ public class MoviesController {
   public String showUpdateMovieForm(@PathVariable("id") long id, Model model)
       throws ServiceException {
 
-    MovieDto movie = service.retrieveMovie(id);
+    MovieModel movie = MovieModelUtil.createMovieModel(service.retrieveMovie(id));
     model.addAttribute("movieForm", movie);
 
     return "movie/movieForm";
@@ -71,6 +73,10 @@ public class MoviesController {
     return "redirect:/cinemarating/movies";
   }
 
-
+  @PostMapping (value = "/movies/{id}/rate")
+  public String rateAMovie(@ModelAttribute("rateMovieForm") RatingModel rating, HttpServletRequest request){
+    service.rateAMovie(MovieModelUtil.createRatingDto(rating));
+    return "redirect:/cinemarating/movies/" + rating.getMovieId();
+  }
 
 }

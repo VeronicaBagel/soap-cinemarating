@@ -1,26 +1,26 @@
-package by.bsu.soap.dto;
+package by.bsu.soap.model;
 
 
-import java.time.LocalDate;
 
-public class MovieDto {
+public class MovieModel {
+
   private long movieId;
   private String title;
   private double runningTime;
   private double budget;
   private double rating;
 
-  public MovieDto() {
+  public MovieModel() {
   }
 
-  public MovieDto(String title, double runningTime, double budget, double rating) {
+  public MovieModel(String title, double runningTime, double budget, double rating) {
     this.title = title;
     this.runningTime = runningTime;
     this.budget = budget;
     this.rating = rating;
   }
 
-  public MovieDto(long movieId, String title, double runningTime,
+  public MovieModel(long movieId, String title, double runningTime,
       double budget, double rating) {
     this.movieId = movieId;
     this.title = title;
@@ -28,6 +28,7 @@ public class MovieDto {
     this.budget = budget;
     this.rating = rating;
   }
+
 
   public long getMovieId() {
     return movieId;

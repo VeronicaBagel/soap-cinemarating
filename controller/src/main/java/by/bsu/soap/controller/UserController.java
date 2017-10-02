@@ -1,9 +1,10 @@
 package by.bsu.soap.controller;
 
-import by.bsu.soap.dto.UserDto;
 import by.bsu.soap.exception.ServiceException;
 import by.bsu.soap.model.LoginModel;
+import by.bsu.soap.model.UserModel;
 import by.bsu.soap.service.UserService;
+import by.bsu.soap.util.UserModelUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,21 +38,21 @@ public class UserController {
   @GetMapping (value = "/users/{id}")
   public String showUser(@PathVariable("id") long userId, Model model) throws Exception {
     //UserService service = new UserServiceClient().getUserServicePort();
-    UserDto dto = service.retrieveUser(userId);
-    model.addAttribute(USER_ATTRIBUTE, dto);
+    UserModel user = UserModelUtil.createUserModel(service.retrieveUser(userId));
+    model.addAttribute(USER_ATTRIBUTE, user);
     return "user/user";
   }
 
   @GetMapping (value = "users/add")
   public String showAddUserForm(Model model){
-    UserDto dto = new UserDto();
-    model.addAttribute("userAddForm", dto);
+    UserModel user = new UserModel();
+    model.addAttribute("userAddForm", user);
     return "user/userAddForm";
   }
 
   @PostMapping (value = "/users")
-  public String saveUser(@ModelAttribute("login") UserDto user, HttpServletRequest request){
-    service.saveOrUpdateUser(user);
+  public String saveUser(@ModelAttribute("login") UserModel user, HttpServletRequest request){
+    service.saveOrUpdateUser(UserModelUtil.createUserDto(user));
     request.getSession().setAttribute(USER_ATTRIBUTE, user);
     return "redirect:/cinemarating/main";
   }
@@ -66,7 +67,7 @@ public class UserController {
   public String showUpdateUserForm(@PathVariable("id") long id, Model model)
       throws ServiceException {
 
-    UserDto user = service.retrieveUser(id);
+    UserModel user = UserModelUtil.createUserModel(service.retrieveUser(id));
     model.addAttribute("userUpdateForm", user);
 
     return "user/userUpdateForm";
@@ -76,7 +77,8 @@ public class UserController {
   @PostMapping(value = "/loginProcess")
   public String loginProcess(HttpServletRequest request, HttpServletResponse response,
       @ModelAttribute("login") LoginModel login) {
-    UserDto user = service.validateUser(login.getUsername(), login.getPassword());
+    UserModel user = UserModelUtil.createUserModel(service.validateUser(login.getUsername(),
+        login.getPassword()));
     if (null != user) {
       request.getSession().setAttribute(USER_ATTRIBUTE, user);
       return "main";
@@ -87,7 +89,7 @@ public class UserController {
 
   @GetMapping (value = "/login")
   public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response) {
-    ModelAndView mav = new ModelAndView("login");
+    ModelAndView mav = new ModelAndView("user/login");
     mav.addObject("login", new LoginModel());
     return mav;
   }
@@ -98,7 +100,6 @@ public class UserController {
    request.getSession().removeAttribute(USER_ATTRIBUTE);
     return "main";
   }
-
 
 
 
