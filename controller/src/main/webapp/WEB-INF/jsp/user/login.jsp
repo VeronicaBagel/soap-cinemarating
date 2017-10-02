@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
-    <title>Login</title>
+    <title>Cinemarating</title>
 </head>
 <body>
 <form:form id="loginForm" commandName="login" action="loginProcess" method="post">

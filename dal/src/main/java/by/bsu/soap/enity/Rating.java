@@ -1,8 +1,9 @@
 package by.bsu.soap.enity;
 
 
+import java.io.Serializable;
 
-public class Rating {
+public class Rating implements Serializable {
 
   private long userId;
   private long movieId;

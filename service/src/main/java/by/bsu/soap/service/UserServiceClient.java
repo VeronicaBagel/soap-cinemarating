@@ -9,8 +9,6 @@ import javax.xml.ws.WebEndpoint;
 import javax.xml.ws.WebServiceClient;
 import javax.xml.ws.WebServiceException;
 import javax.xml.ws.WebServiceFeature;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 
 
 /**

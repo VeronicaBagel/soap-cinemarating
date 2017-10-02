@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Cinemarating</title>
 </head>
 <body>
 <spring:url value="/cinemarating/movies/${movie.movieId}/delete" var="deleteUrl" />

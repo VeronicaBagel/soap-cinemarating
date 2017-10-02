@@ -3,7 +3,6 @@ package by.bsu.soap.dao;
 
 import by.bsu.soap.enity.Movie;
 import by.bsu.soap.enity.Rating;
-import by.bsu.soap.enity.User;
 import java.util.List;
 
 public interface MovieDao {

@@ -6,7 +6,6 @@ import by.bsu.soap.dto.RatingDto;
 import by.bsu.soap.enity.Movie;
 import by.bsu.soap.enity.Rating;
 import by.bsu.soap.wrapper.MovieDtoArray;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDtoUtil {

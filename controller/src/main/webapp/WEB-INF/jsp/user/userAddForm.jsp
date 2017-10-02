@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
-    <title>Title</title>
+    <title>Cinemarating</title>
 </head>
 <body>
 <spring:url value="/cinemarating/users" var="userActionUrl" />
