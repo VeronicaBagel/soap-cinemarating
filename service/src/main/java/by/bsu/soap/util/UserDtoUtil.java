@@ -3,20 +3,17 @@ package by.bsu.soap.util;
 
 import by.bsu.soap.dto.UserDto;
 import by.bsu.soap.enity.User;
-import java.util.ArrayList;
+import by.bsu.soap.wrapper.UserDtoArray;
 import java.util.List;
 
 public class UserDtoUtil {
 
-  public static UserDto[] createUserDTOs(List<User> users){
-    List<UserDto> dtos = new ArrayList<>();
-
-    for(User user: users){
-      dtos.add(createUserDto(user));
+  public static UserDtoArray createUserDTOs(List<User> users){
+    UserDtoArray result = new UserDtoArray();
+    for(User user: users) {
+      result.getItem().add(createUserDto(user));
     }
-
-    UserDto[] result = new UserDto[dtos.size()];
-    return dtos.toArray(result);
+    return result;
   }
 
   public static UserDto createUserDto (User user){

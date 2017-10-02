@@ -13,16 +13,19 @@
 <spring:url value="/cinemarating/login" var="login" />
 <spring:url value="/cinemarating/logout" var="logout" />
 
+<c:if test="${not empty user}">
+   ${user.login} <br />
+    <form:form name = "logoutForm" action="${logout}">
+        <input type="submit" value="Log out" />
+    </form:form>
+    <br />
+</c:if>
 
-Main page <br />
-Hello, ${user.login} <br />
 
-<button onclick="location.href='${login}'">Log in</button> <br />
-<button onclick="location.href='${addUser}'">Register</button> <br />
-<form:form name = "logoutForm" action="${logout}">
-    <input type="submit" value="Log out" />
-</form:form>
-<br /><br />
+<c:if test="${empty user}">
+    <button onclick="location.href='${login}'">Log in</button> <br />
+    <button onclick="location.href='${addUser}'">Register</button> <br />
+</c:if>
 
 <button onclick="location.href='${allUsers}'">See all users</button>
 <button onclick="location.href='${allMovies}'">See all movies</button>

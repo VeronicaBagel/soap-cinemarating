@@ -1,14 +1,10 @@
 package by.bsu.soap.service;
 
 
-import by.bsu.soap.dao.DaoException;
 import by.bsu.soap.dao.UserDao;
 import by.bsu.soap.dto.UserDto;
-import by.bsu.soap.enity.User;
-import by.bsu.soap.exception.ServiceException;
 import by.bsu.soap.util.UserDtoUtil;
-import java.util.List;
-import javax.jws.WebMethod;
+import by.bsu.soap.wrapper.UserDtoArray;
 import javax.jws.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,14 +16,18 @@ import org.springframework.stereotype.Service;
 )
 public class UserServiceImpl implements UserService{
 
-  @Autowired
   private UserDao dao;
 
-  public UserServiceImpl(){
+  @Autowired
+  public UserServiceImpl(UserDao dao){
+    this.dao = dao;
+  }
+
+  public UserServiceImpl() {
   }
 
   @Override
-  public UserDto[] retrieveAllUsers() {
+  public UserDtoArray retrieveAllUsers() {
     return UserDtoUtil.createUserDTOs(dao.retrieveAllUsers());
   }
 

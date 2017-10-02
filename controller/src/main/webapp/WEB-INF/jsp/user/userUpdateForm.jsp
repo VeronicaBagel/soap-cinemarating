@@ -4,11 +4,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Update user</title>
 </head>
 <body>
 <spring:url value="/cinemarating/users" var="userActionUrl" />
-<form:form method="post" modelAttribute="userUpdateForm" action="${userActionUrl}">
+<c:choose>
+<c:when test="${not empty user and (user.userId eq userUpdateForm.userId)}">
+    <form:form method="post" modelAttribute="userUpdateForm" action="${userActionUrl}">
 
     <form:hidden path="userId" />
 
@@ -67,5 +69,10 @@
     <br />
 
 </form:form>
+</c:when>
+<c:otherwise>
+    You're not allowed to perform this operation
+</c:otherwise>
+</c:choose>
 </body>
 </html>

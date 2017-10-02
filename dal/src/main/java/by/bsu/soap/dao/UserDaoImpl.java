@@ -17,7 +17,7 @@ public class UserDaoImpl implements UserDao{
   private JdbcTemplate template;
 
   @Autowired
-  public void UserDaoImpl(JdbcTemplate template) {
+  public UserDaoImpl(JdbcTemplate template) {
     this.template = template;
   }
 

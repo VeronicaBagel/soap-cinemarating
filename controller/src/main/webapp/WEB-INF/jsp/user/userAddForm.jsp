@@ -8,6 +8,8 @@
 </head>
 <body>
 <spring:url value="/cinemarating/users" var="userActionUrl" />
+<c:choose>
+<c:when test="${empty user}">
 <form:form method="post" modelAttribute="userAddForm" action="${userActionUrl}">
 
     <form:hidden path="userId" />
@@ -47,6 +49,10 @@
     <br />
 
 </form:form>
-
+</c:when>
+<c:otherwise>
+    You've already logged in
+</c:otherwise>
+</c:choose>
 </body>
 </html>

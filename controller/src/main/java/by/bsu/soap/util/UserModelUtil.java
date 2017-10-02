@@ -1,7 +1,6 @@
 package by.bsu.soap.util;
 
 import by.bsu.soap.dto.UserDto;
-import by.bsu.soap.enity.User;
 import by.bsu.soap.model.UserModel;
 
 public class UserModelUtil {

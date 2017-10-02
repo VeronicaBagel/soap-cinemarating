@@ -4,6 +4,7 @@ package by.bsu.soap.controller;
 import by.bsu.soap.exception.ServiceException;
 import by.bsu.soap.model.MovieModel;
 import by.bsu.soap.model.RatingModel;
+import by.bsu.soap.model.UserModel;
 import by.bsu.soap.service.MovieService;
 import by.bsu.soap.util.MovieModelUtil;
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +36,8 @@ public class MoviesController {
   }
 
   @GetMapping (value = "/movies/{id}")
-  public String showUser(@PathVariable("id") long movieId, Model model) throws Exception {
+  public String showUser(@PathVariable("id") long movieId, Model model, HttpServletRequest req)
+      throws Exception {
     MovieModel movie = MovieModelUtil.createMovieModel(service.retrieveMovie(movieId));
     model.addAttribute("rateMovieForm", new RatingModel());
     model.addAttribute(MOVIE_ATTRIBUTE, movie);

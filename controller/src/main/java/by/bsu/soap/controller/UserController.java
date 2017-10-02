@@ -4,10 +4,12 @@ import by.bsu.soap.exception.ServiceException;
 import by.bsu.soap.model.LoginModel;
 import by.bsu.soap.model.UserModel;
 import by.bsu.soap.service.UserService;
+import by.bsu.soap.service.UserServiceClient;
 import by.bsu.soap.util.UserModelUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,13 +33,12 @@ public class UserController {
 
   @GetMapping (value = "/users")
   public String showAllUsers(Model model) {
-    model.addAttribute(USERS_ATTRIBUTE, service.retrieveAllUsers());
+    model.addAttribute(USERS_ATTRIBUTE, service.retrieveAllUsers().getItem());
     return "user/allUsers";
   }
 
   @GetMapping (value = "/users/{id}")
   public String showUser(@PathVariable("id") long userId, Model model) throws Exception {
-    //UserService service = new UserServiceClient().getUserServicePort();
     UserModel user = UserModelUtil.createUserModel(service.retrieveUser(userId));
     model.addAttribute(USER_ATTRIBUTE, user);
     return "user/user";
