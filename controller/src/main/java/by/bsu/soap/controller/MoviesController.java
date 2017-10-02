@@ -6,6 +6,7 @@ import by.bsu.soap.model.MovieModel;
 import by.bsu.soap.model.RatingModel;
 import by.bsu.soap.model.UserModel;
 import by.bsu.soap.service.MovieService;
+import by.bsu.soap.service.MovieServiceClient;
 import by.bsu.soap.util.MovieModelUtil;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class MoviesController {
 
-  private MovieService service;
-
-  @Autowired
-  public MoviesController(MovieService service) {
-    this.service = service;
-  }
+  private MovieService service = new MovieServiceClient().getMovieServicePort();
 
   private static final String MOVIE_ATTRIBUTE = "movie";
   private static final String MOVIES_ATTRIBUTE = "movies";
