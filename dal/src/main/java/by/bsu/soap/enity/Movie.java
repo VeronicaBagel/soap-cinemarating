@@ -19,25 +19,22 @@ import javax.persistence.Table;
 public class Movie implements Serializable {
   private long movieId;
   private String title;
-  private LocalDate releaseDate;
   private double runningTime;
   private double budget;
 
   public Movie() {
   }
 
-  public Movie(String title, LocalDate releaseDate, double runningTime, double budget) {
+  public Movie(String title, double runningTime, double budget) {
     this.title = title;
-    this.releaseDate = releaseDate;
     this.runningTime = runningTime;
     this.budget = budget;
   }
 
-  public Movie(long movieId, String title, LocalDate releaseDate, double runningTime,
+  public Movie(long movieId, String title, double runningTime,
       double budget) {
     this.movieId = movieId;
     this.title = title;
-    this.releaseDate = releaseDate;
     this.runningTime = runningTime;
     this.budget = budget;
   }
@@ -57,14 +54,6 @@ public class Movie implements Serializable {
 
   public void setTitle(String title) {
     this.title = title;
-  }
-
-  public LocalDate getReleaseDate() {
-    return releaseDate;
-  }
-
-  public void setReleaseDate(LocalDate releaseDate) {
-    this.releaseDate = releaseDate;
   }
 
   public double getRunningTime() {

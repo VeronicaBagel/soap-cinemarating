@@ -1,10 +1,6 @@
 
 package by.bsu.soap.dto;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlType;
-
 public class UserDto {
 
     private String email;

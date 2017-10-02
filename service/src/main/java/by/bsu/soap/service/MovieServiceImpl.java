@@ -1,0 +1,48 @@
+package by.bsu.soap.service;
+
+
+import by.bsu.soap.dao.MovieDao;
+import by.bsu.soap.dto.MovieDto;
+import by.bsu.soap.exception.ServiceException;
+import by.bsu.soap.util.MovieDtoUtil;
+import javax.jws.WebService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+@WebService(endpointInterface = "by.bsu.soap.service.MovieService",
+    portName = "movieServicePort",
+    serviceName = "movieService"
+)
+public class MovieServiceImpl implements MovieService{
+  @Autowired
+  private MovieDao dao;
+
+  public MovieServiceImpl(){
+  }
+
+  @Override
+  public MovieDto[] retrieveAllMovies() {
+    return MovieDtoUtil.createMovieDTOs(dao.retrieveAllMovies());
+  }
+
+  @Override
+  public MovieDto retrieveMovie(long id) throws ServiceException {
+    return MovieDtoUtil.createMovieDto(dao.retrieveMovieById(id));
+  }
+
+
+  @Override
+  public void saveOrUpdateMovie(MovieDto dto) {
+    if (dto.getMovieId() == 0) {
+      dao.addMovie(MovieDtoUtil.createMovieEntity(dto));
+    } else{
+      dao.updateMovie(MovieDtoUtil.createMovieEntity(dto));
+    }
+  }
+
+  @Override
+  public void deleteMovie(long id) {
+    dao.deleteMovie(id);
+  }
+}

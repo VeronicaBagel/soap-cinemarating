@@ -1,7 +1,28 @@
 package by.bsu.soap.service;
 
 
+import by.bsu.soap.dto.MovieDto;
+import by.bsu.soap.exception.ServiceException;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+import javax.jws.soap.SOAPBinding.Style;
 
-public class MovieService {
+@WebService
+@SOAPBinding(style = Style.RPC)
+public interface MovieService {
+
+  @WebMethod
+  MovieDto retrieveMovie(long id) throws ServiceException;
+
+  @WebMethod
+  MovieDto[] retrieveAllMovies();
+
+  @WebMethod
+  void saveOrUpdateMovie(MovieDto dto);
+
+  @WebMethod
+  void deleteMovie(long id);
+
 
 }

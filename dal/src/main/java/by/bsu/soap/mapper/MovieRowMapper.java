@@ -13,9 +13,8 @@ public class MovieRowMapper implements RowMapper<Movie> {
     Movie movie = new Movie();
     movie.setMovieId(rs.getInt(1));
     movie.setTitle(rs.getString(2));
-    movie.setReleaseDate(rs.getDate(3).toLocalDate());
-    movie.setRunningTime(rs.getDouble(4));
-    movie.setBudget(rs.getDouble(5));
+    movie.setRunningTime(rs.getDouble(3));
+    movie.setBudget(rs.getDouble(4));
     return movie;
   }
 }

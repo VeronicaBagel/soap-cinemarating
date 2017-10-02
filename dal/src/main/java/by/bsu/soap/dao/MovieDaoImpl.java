@@ -6,7 +6,9 @@ import by.bsu.soap.mapper.MovieRowMapper;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class MovieDaoImpl implements MovieDao{
 
   private JdbcTemplate template;
@@ -16,15 +18,15 @@ public class MovieDaoImpl implements MovieDao{
     this.template = template;
   }
 
-  private static final String SQL_SHOW_MOVIES = "SELECT movie_id, movie_title, movie_release_date, "
+  private static final String SQL_SHOW_MOVIES = "SELECT movie_id, movie_title,"
       + "movie_running_time, movie_budget FROM MOVIES";
-  private static final String SQL_SHOW_MOVIE = "SELECT movie_id, movie_title, movie_release_date, "
-      + "movie_running_time, movie_budget FROM MOVIES WHERE user_id = ?";
-  private static final String SQL_ADD_MOVIE = "INSERT INTO MOVIES (movie_title, movie_release_date,"
-      + " movie_running_time, movie_budget) values (?,?,?,?)";
-  private static final String SQL_UPDATE_MOVIE = "UPDATE MOVIES set movie_title = ?, movie_release_date = ?, "
+  private static final String SQL_SHOW_MOVIE = "SELECT movie_id, movie_title, "
+      + "movie_running_time, movie_budget FROM MOVIES WHERE movie_id = ?";
+  private static final String SQL_ADD_MOVIE = "INSERT INTO MOVIES (movie_title, "
+      + " movie_running_time, movie_budget) values (?,?,?)";
+  private static final String SQL_UPDATE_MOVIE = "UPDATE MOVIES set movie_title = ?, "
       + "movie_running_time = ?, movie_budget = ? where movie_id = ?";
-  private static final String SQL_DELETE_MOVIE = "DELETE FROM MOVIES WHERE MOVIE_ID = ?";
+  private static final String SQL_DELETE_MOVIE = "DELETE FROM MOVIES WHERE movie_id = ?";
 
   @Override
   public List<Movie> retrieveAllMovies(){
@@ -40,15 +42,13 @@ public class MovieDaoImpl implements MovieDao{
 
   @Override
   public void addMovie(Movie movie) {
-    Object[] args = new Object[] {movie.getTitle(),movie.getReleaseDate(),
-        movie.getRunningTime(), movie.getBudget()};
+    Object[] args = new Object[] {movie.getTitle(), movie.getRunningTime(), movie.getBudget()};
     template.update(SQL_ADD_MOVIE, args);
   }
 
   @Override
   public void updateMovie(Movie movie) {
-    Object[] args = new Object[] {movie.getTitle(),movie.getReleaseDate(),
-        movie.getRunningTime(), movie.getBudget(), movie.getMovieId()};
+    Object[] args = new Object[] {movie.getTitle(), movie.getRunningTime(), movie.getBudget(), movie.getMovieId()};
     template.update(SQL_UPDATE_MOVIE, args);
   }
 

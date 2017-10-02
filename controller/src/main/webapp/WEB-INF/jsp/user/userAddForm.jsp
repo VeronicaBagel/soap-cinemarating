@@ -42,8 +42,6 @@
         </div>
     </spring:bind>
 
-
-
     <btr />
     <button type="submit">Add</button>
     <br />
