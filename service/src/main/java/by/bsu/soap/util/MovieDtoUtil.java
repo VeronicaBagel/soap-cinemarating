@@ -2,9 +2,7 @@ package by.bsu.soap.util;
 
 
 import by.bsu.soap.dto.MovieDto;
-import by.bsu.soap.dto.UserDto;
 import by.bsu.soap.enity.Movie;
-import by.bsu.soap.enity.User;
 
 public class MovieDtoUtil {
 

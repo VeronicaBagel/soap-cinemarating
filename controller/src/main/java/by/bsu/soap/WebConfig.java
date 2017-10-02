@@ -1,20 +1,18 @@
 package by.bsu.soap;
 
 
-import by.bsu.soap.enity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.xml.ws.transport.http.servlet.WSServletContextListener;
-import java.util.Properties;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @EnableWebMvc
 @PropertySource("classpath:db.properties")
@@ -31,12 +29,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
   @Bean
   @Autowired
-  public LocalSessionFactoryBean createSessionFactory(DataSource source){
-    LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-    sessionFactory.setDataSource(source);
-    sessionFactory.setHibernateProperties(hibernateProperties());
-    sessionFactory.setAnnotatedClasses(User.class);
-    return sessionFactory;
+  public JdbcTemplate getJDBCTemplate(DataSource dataSource){
+    JdbcTemplate template = new JdbcTemplate(dataSource);
+    return template;
   }
 
   @Bean
@@ -49,13 +44,22 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     return source;
   }
 
-  Properties hibernateProperties() {
+  @Bean
+  public InternalResourceViewResolver viewResolver(){
+    InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+    resolver.setPrefix("/WEB-INF/jsp/");
+    resolver.setSuffix(".jsp");
+    return resolver;
+  }
+
+  /*Properties hibernateProperties() {
     return new Properties() {
       {
-        setProperty("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
+        setProperty("hibernate.dialect", "org.hibernate.dialect.Oracle12cDialect");
+        setProperty("show_sql", "true");
       }
     };
-  }
+  }*/
 
 
 }

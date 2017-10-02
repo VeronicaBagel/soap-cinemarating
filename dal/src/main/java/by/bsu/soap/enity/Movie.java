@@ -3,6 +3,18 @@ package by.bsu.soap.enity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 public class Movie implements Serializable {
   private long movieId;
@@ -29,6 +41,7 @@ public class Movie implements Serializable {
     this.runningTime = runningTime;
     this.budget = budget;
   }
+
 
   public long getMovieId() {
     return movieId;
@@ -70,55 +83,4 @@ public class Movie implements Serializable {
     this.budget = budget;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-
-    Movie movie = (Movie) o;
-
-    if (movieId != movie.movieId) {
-      return false;
-    }
-    if (Double.compare(movie.runningTime, runningTime) != 0) {
-      return false;
-    }
-    if (Double.compare(movie.budget, budget) != 0) {
-      return false;
-    }
-    if (!title.equals(movie.title)) {
-      return false;
-    }
-    return releaseDate.equals(movie.releaseDate);
-
-  }
-
-  @Override
-  public int hashCode() {
-    int result;
-    long temp;
-    result = (int) (movieId ^ (movieId >>> 32));
-    result = 31 * result + title.hashCode();
-    result = 31 * result + releaseDate.hashCode();
-    temp = Double.doubleToLongBits(runningTime);
-    result = 31 * result + (int) (temp ^ (temp >>> 32));
-    temp = Double.doubleToLongBits(budget);
-    result = 31 * result + (int) (temp ^ (temp >>> 32));
-    return result;
-  }
-
-  @Override
-  public String toString() {
-    return "Movie{" +
-        "movieId=" + movieId +
-        ", title='" + title + '\'' +
-        ", releaseDate=" + releaseDate +
-        ", runningTime=" + runningTime +
-        ", budget=" + budget +
-        '}';
-  }
 }

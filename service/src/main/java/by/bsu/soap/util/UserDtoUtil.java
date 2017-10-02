@@ -8,14 +8,15 @@ import java.util.List;
 
 public class UserDtoUtil {
 
-  public static ArrayList<UserDto> createUserDTOs(ArrayList<User> users){
-    ArrayList<UserDto> dtos = new ArrayList<>();
+  public static UserDto[] createUserDTOs(List<User> users){
+    List<UserDto> dtos = new ArrayList<>();
 
     for(User user: users){
       dtos.add(createUserDto(user));
     }
 
-    return dtos;
+    UserDto[] result = new UserDto[dtos.size()];
+    return dtos.toArray(result);
   }
 
   public static UserDto createUserDto (User user){
@@ -31,15 +32,15 @@ public class UserDtoUtil {
     return dto;
   }
 
-  public static ArrayList<User> createUserEntities(ArrayList<UserDto> dtos){
-    ArrayList<User> users = new ArrayList<>();
+  /*public static List<User> createUserEntities(List<UserDto> dtos){
+    List<User> users = new ArrayList<>();
 
     for(UserDto dto: dtos){
       users.add(createUserEntity(dto));
     }
 
     return users;
-  }
+  }*/
 
   public static User createUserEntity(UserDto dto){
     User user = new User();

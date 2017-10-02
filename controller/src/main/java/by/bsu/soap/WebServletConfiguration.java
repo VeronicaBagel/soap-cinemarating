@@ -17,13 +17,14 @@ public class WebServletConfiguration implements WebApplicationInitializer {
     ctx.addListener(new WSServletContextListener());
     webCtx.setServletContext(ctx);
     webCtx.register(WebConfig.class);
+
     ServletRegistration.Dynamic servlet = ctx.addServlet("soap", new WSServlet());
     servlet.setLoadOnStartup(0);
     servlet.addMapping("/soap/*");
 
     ServletRegistration.Dynamic controller = ctx.addServlet("cinemarating", new DispatcherServlet(webCtx));
     controller.setLoadOnStartup(1);
-    controller.addMapping("/");
+    controller.addMapping("/cinemarating/*");
 
     controller.setInitParameter("throwExceptionIfNoHandlerFound", "true");
   }

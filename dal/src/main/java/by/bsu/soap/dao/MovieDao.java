@@ -1,0 +1,15 @@
+package by.bsu.soap.dao;
+
+
+import by.bsu.soap.enity.Movie;
+import by.bsu.soap.enity.User;
+import java.util.List;
+
+public interface MovieDao {
+  List<Movie> retrieveAllMovies();
+  Movie retrieveMovieById(long id) throws DaoException;
+  void addMovie(Movie movie);
+  void updateMovie(Movie movie);
+  void deleteMovie(long id);
+
+}

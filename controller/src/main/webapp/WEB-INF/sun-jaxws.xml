@@ -5,11 +5,7 @@
 
 <endpoint name="UserService"
   implementation="by.bsu.soap.service.UserServiceImpl"
-  url-pattern="/userService" />
-
-  <endpoint name="MovieService"
-    implementation="by.bsu.soap.service.MovieServiceImpl"
-    url-pattern="/movieService" />
+  url-pattern="/soap/userService" />
 
 
 </endpoints>

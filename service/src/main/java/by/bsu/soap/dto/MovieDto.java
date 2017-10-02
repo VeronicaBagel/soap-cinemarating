@@ -72,56 +72,6 @@ public class MovieDto {
     this.budget = budget;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
 
-    MovieDto movie = (MovieDto) o;
-
-    if (movieId != movie.movieId) {
-      return false;
-    }
-    if (Double.compare(movie.runningTime, runningTime) != 0) {
-      return false;
-    }
-    if (Double.compare(movie.budget, budget) != 0) {
-      return false;
-    }
-    if (!title.equals(movie.title)) {
-      return false;
-    }
-    return releaseDate.equals(movie.releaseDate);
-
-  }
-
-  @Override
-  public int hashCode() {
-    int result;
-    long temp;
-    result = (int) (movieId ^ (movieId >>> 32));
-    result = 31 * result + title.hashCode();
-    result = 31 * result + releaseDate.hashCode();
-    temp = Double.doubleToLongBits(runningTime);
-    result = 31 * result + (int) (temp ^ (temp >>> 32));
-    temp = Double.doubleToLongBits(budget);
-    result = 31 * result + (int) (temp ^ (temp >>> 32));
-    return result;
-  }
-
-  @Override
-  public String toString() {
-    return "Movie{" +
-        "movieId=" + movieId +
-        ", title='" + title + '\'' +
-        ", releaseDate=" + releaseDate +
-        ", runningTime=" + runningTime +
-        ", budget=" + budget +
-        '}';
-  }
 
 }
