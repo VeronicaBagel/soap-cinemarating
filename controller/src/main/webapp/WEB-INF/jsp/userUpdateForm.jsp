@@ -1,14 +1,16 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
 <spring:url value="/cinemarating/users" var="userActionUrl" />
-<form:form method="post" modelAttribute="userAddingForm" action="${userActionUrl}">
+<form:form method="post" modelAttribute="userUpdateForm" action="${userActionUrl}">
+
+    <form:hidden path="userId" />
 
     <spring:bind path="login">
         <div>
@@ -40,11 +42,30 @@
         </div>
     </spring:bind>
 
+    <spring:bind path="firstName">
+        <div>
+            <label>First name</label>
+            <div>
+                <form:input path="firstName" id="firstName" placeholder="First name" />
+                <form:errors path="firstName" />
+            </div>
+        </div>
+    </spring:bind>
+
+    <spring:bind path="lastName">
+        <div>
+            <label>Last name</label>
+            <div>
+                <form:input path="lastName" id="lastName" placeholder="Last name" />
+                <form:errors path="lastName" />
+            </div>
+        </div>
+    </spring:bind>
+
     <btr />
-    <button type="submit" class="btn-lg btn-primary pull-right">Add</button>
+    <button type="submit">Update</button>
     <br />
 
 </form:form>
-
 </body>
 </html>

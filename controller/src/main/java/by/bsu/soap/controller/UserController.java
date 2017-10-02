@@ -3,11 +3,14 @@ package by.bsu.soap.controller;
 import by.bsu.soap.dao.UserDao;
 import by.bsu.soap.dto.UserDto;
 import by.bsu.soap.exception.ServiceException;
+import by.bsu.soap.model.LoginModel;
 import by.bsu.soap.service.UserService;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,14 +56,15 @@ public class UserController {
   @GetMapping (value = "users/add")
   public String showAddUserForm(Model model){
     UserDto dto = new UserDto();
-    model.addAttribute("userAddingForm", dto);
-    return "userAddingForm";
+    model.addAttribute("userAddForm", dto);
+    return "userAddForm";
   }
 
   @PostMapping (value = "/users")
-  public String saveUser(@ModelAttribute("login") UserDto user){
-    service.addUser(user);
-    return "redirect:/cinemarating/users/";
+  public String saveUser(@ModelAttribute("login") UserDto user, HttpServletRequest request){
+    service.saveOrUpdateUser(user);
+    request.getSession().setAttribute("user", user);
+    return "redirect:/cinemarating/main";
   }
 
   @PostMapping(value = "/users/{id}/delete")
@@ -69,19 +73,43 @@ public class UserController {
     return "redirect:/cinemarating/users";
   }
 
-  // show update form
   @GetMapping(value = "/users/{id}/update")
   public String showUpdateUserForm(@PathVariable("id") long id, Model model)
       throws ServiceException {
 
     UserDto user = service.retrieveUser(id);
-    model.addAttribute("userUpdatingForm", user);
+    model.addAttribute("userUpdateForm", user);
 
-    populateDefaultModel(model);
-
-    return "users/userform";
+    return "userUpdateForm";
 
   }
+
+  @PostMapping(value = "/loginProcess")
+  public String loginProcess(HttpServletRequest request, HttpServletResponse response,
+      @ModelAttribute("login") LoginModel login) {
+    UserDto user = service.validateUser(login.getUsername(), login.getPassword());
+    if (null != user) {
+      request.getSession().setAttribute("user", user);
+      return "main";
+    }
+    return "login";
+  }
+
+
+  @GetMapping (value = "/login")
+  public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response) {
+    ModelAndView mav = new ModelAndView("login");
+    mav.addObject("login", new LoginModel());
+    return mav;
+  }
+
+
+  @PostMapping(value = "/logout")
+  public String logoutProcess(HttpServletRequest request, HttpServletResponse response) {
+   request.getSession().removeAttribute("user");
+    return "main";
+  }
+
 
 
 

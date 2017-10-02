@@ -32,27 +32,31 @@ public class UserServiceImpl implements UserService{
   }
 
   @Override
-  public UserDto retrieveUser(long id) throws ServiceException {
-    try {
-      return UserDtoUtil.createUserDto(dao.retrieveUserById(id));
-    } catch (DaoException e) {
-      throw new ServiceException("Can't find user with such id", e);
+  public UserDto retrieveUser(long id) {
+    return UserDtoUtil.createUserDto(dao.retrieveUserById(id));
+  }
+
+  @Override
+  public void saveOrUpdateUser(UserDto dto) {
+    if (dto.getUserId() == 0) {
+      dao.addUser(UserDtoUtil.createUserEntity(dto));
+    } else{
+      dao.updateUser(UserDtoUtil.createUserEntity(dto));
     }
-  }
 
-  @Override
-  public void addUser(UserDto dto) {
-    dao.addUser(UserDtoUtil.createUserEntity(dto));
-  }
-
-  @Override
-  public void updateUser(long id) {
-    dao.deleteUser(id);
   }
 
   @Override
   public void deleteUser(long id) {
     dao.deleteUser(id);
+  }
+
+  @Override
+  public UserDto validateUser(String login, String password) {
+    if(dao.validateUser(login, password) != null){
+      return UserDtoUtil.createUserDto(dao.validateUser(login, password));
+    }
+    return null;
   }
 
 }

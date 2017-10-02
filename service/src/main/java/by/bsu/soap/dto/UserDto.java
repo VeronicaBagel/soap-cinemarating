@@ -1,6 +1,9 @@
 
 package by.bsu.soap.dto;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
 
 public class UserDto {
 
@@ -55,10 +58,18 @@ public class UserDto {
         this.password = value;
     }
 
+    /**
+     * Gets the value of the userId property.
+     *
+     */
     public long getUserId() {
         return userId;
     }
 
+    /**
+     * Sets the value of the userId property.
+     *
+     */
     public void setUserId(long value) {
         this.userId = value;
     }

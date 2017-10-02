@@ -9,9 +9,11 @@
 ${user.login} <br />
 <spring:url value="/cinemarating/users/${user.userId}/delete" var="deleteUrl" />
 <spring:url value="/cinemarating/users/${user.userId}/update" var="updateUrl" />
+<spring:url value="/cinemarating/main" var="homeUrl" />
 <button onclick="location.href='${updateUrl}'">Update</button>
 <form:form name = "deleteUserForm" action="${deleteUrl}">
     <input type="submit" value="Delete" />
 </form:form>
+<button onclick="location.href='${homeUrl}'">Home</button>
 </body>
 </html>

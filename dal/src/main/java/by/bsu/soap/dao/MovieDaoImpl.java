@@ -32,8 +32,8 @@ public class MovieDaoImpl implements MovieDao{
   }
 
   @Override
-  public Movie retrieveMovieById(long id) throws DaoException {
-    Movie movie = (Movie) template.queryForObject(SQL_SHOW_MOVIE, new Object[]{id},
+  public Movie retrieveMovieById(long id) {
+    Movie movie = template.queryForObject(SQL_SHOW_MOVIE, new Object[]{id},
         new MovieRowMapper());
     return movie;
   }

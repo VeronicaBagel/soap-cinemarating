@@ -31,14 +31,17 @@ public class UserDaoImpl implements UserDao{
       + "user_first_name = ?, user_last_name=  ? where user_id = ?";
   private static final String SQL_DELETE_USER = "DELETE FROM USERS WHERE USER_ID = ?";
 
+  private static final String SQL_VALIDATE_USER = "SELECT user_id, user_login, user_password, "
+      + "user_email, user_first_name, user_last_name FROM USERS WHERE user_login = ? AND user_password = ?";
+
   @Override
   public List<User> retrieveAllUsers(){
     return template.query(SQL_SHOW_USERS, new UserRowMapper());
   }
 
   @Override
-  public User retrieveUserById (long id) throws DaoException {
-    User user = (User) template.queryForObject(SQL_SHOW_USER, new Object[]{id}, new UserRowMapper());
+  public User retrieveUserById (long id) {
+    User user =  template.queryForObject(SQL_SHOW_USER, new Object[]{id}, new UserRowMapper());
     return user;
   }
 
@@ -58,6 +61,13 @@ public class UserDaoImpl implements UserDao{
 
   @Override
   public void deleteUser(long id) {
-    template.update(SQL_DELETE_USER,new Object[]{id});
+    template.update(SQL_DELETE_USER, new Object[]{id});
+  }
+
+  @Override
+  public User validateUser(String login, String password) {
+    Object[] args = new Object[] {login, password};
+    List<User> users = template.query(SQL_VALIDATE_USER, args, new UserRowMapper());
+    return users.size() > 0 ? users.get(0) : null;
   }
 }

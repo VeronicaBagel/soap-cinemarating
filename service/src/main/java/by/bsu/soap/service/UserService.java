@@ -28,12 +28,12 @@ public interface UserService {
   UserDto[] retrieveAllUsers();
 
   @WebMethod
-  void addUser(UserDto dto);
+  void saveOrUpdateUser(UserDto dto);
 
   @WebMethod
   void deleteUser(long id);
 
   @WebMethod
-  void updateUser(long id);
+  UserDto validateUser(String login, String password);
 
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface MovieDao {
   List<Movie> retrieveAllMovies();
-  Movie retrieveMovieById(long id) throws DaoException;
+  Movie retrieveMovieById(long id);
   void addMovie(Movie movie);
   void updateMovie(Movie movie);
   void deleteMovie(long id);
